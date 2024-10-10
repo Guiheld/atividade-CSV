@@ -7,6 +7,27 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as numpy
 
+def comecar_salarios():
+    import main
+    logging.info("Começando o processo de leitura do arquivo " + main.NOME_ARQUIVO_CSV_SALARIOS)
+    arrayNumpySalarios = main.ler_arquivo_csv(main.NOME_ARQUIVO_CSV_SALARIOS)
+    logging.info("Fim do processo de leitura do arquivo " + main.NOME_ARQUIVO_CSV_SALARIOS)
+
+    mediaSalarios = calcular_media_salarios(arrayNumpySalarios)
+    mediaExperiencia = calcular_media_experiencia(arrayNumpySalarios)
+    mediaSalarioCincoAnos = calcularMediaSalarialCincoAnos(arrayNumpySalarios)
+    aumento = aumento_decimo(arrayNumpySalarios)
+
+    logging.info("Gerando grafico para os salarios em relacao ao tempo de experiencia")
+    grafico_barra(arrayNumpySalarios)
+    print("============================== Dados gerados =============================")
+    print("Media salarios: " + str(mediaSalarios))
+    print("Media experiencia: " + str(mediaExperiencia))
+    print("Media salario dos funcionarios com mais de 5 anos de experiencia: " + str(mediaSalarioCincoAnos))
+    print("Salarios caso um aumento de 10% ocorra:")
+    print(aumento)
+    print("==========================================================================")
+
 def calcular_media_salarios(arrayNumpy):
     logging.info("Calculando a media de salarios ...")
     try:
@@ -56,16 +77,18 @@ def aumento_decimo(arrayNumpy):
         logging.error(e)
 
 def grafico_barra(arrayNumpy):
+    logging.getLogger('matplotlib').setLevel(logging.INFO)  # tirar um pouco de log desnecessario
     colunas = ['experiencia', 'salario']
-    # Converta o array NumPy para DataFrame do pandas
+    # Converter o array NumPy para DataFrame do pandas
     df = pd.DataFrame(data=arrayNumpy, columns=colunas)
     plt.figure(figsize=(10, 6))
     plt.bar(df['experiencia'], df['salario'], color='blue')
 
-    # Adicione títulos e rótulos
     plt.title('Salários em relação ao tempo de serviço')
     plt.xlabel('Tempo de Serviço (anos)')
     plt.ylabel('Salário')
 
     # Exiba o gráfico
     plt.show()
+
+

@@ -3,8 +3,9 @@ import os
 
 import pandas
 
+from operacoes.NetflixOperacoesCSV import comecar_netflix
 from operacoes.salariosOperacoesCSV import calcular_media_salarios, calcular_media_experiencia, \
-    calcularMediaSalarialCincoAnos, grafico_barra, aumento_decimo
+    calcularMediaSalarialCincoAnos, grafico_barra, aumento_decimo, comecar_salarios
 
 # Configure the logging
 logging.basicConfig(
@@ -20,25 +21,11 @@ DIRETORIO_CSV = "ArquivosCSV"
 def main():
     if verificar_integridade_arquivos == False:
         logging.critical("Erro ao verificar integridade")
-        return 0
-    logging.info("Começando o processo de leitura do arquivo " + NOME_ARQUIVO_CSV_SALARIOS)
-    arrayNumpySalarios = ler_arquivo_csv(NOME_ARQUIVO_CSV_SALARIOS)
-    logging.info("Fim do processo de leitura do arquivo " + NOME_ARQUIVO_CSV_SALARIOS)
-
-    mediaSalarios = calcular_media_salarios(arrayNumpySalarios)
-    mediaExperiencia = calcular_media_experiencia(arrayNumpySalarios)
-    mediaSalarioCincoAnos = calcularMediaSalarialCincoAnos(arrayNumpySalarios)
-    aumento = aumento_decimo(arrayNumpySalarios)
-
-    logging.info("Gerando grafico para os salarios em relacao ao tempo de experiencia")
-    grafico_barra(arrayNumpySalarios)
-    print("============================== Dados gerados =============================")
-    print("Media salarios: " + str(mediaSalarios))
-    print("Media experiencia: " + str(mediaExperiencia))
-    print("Media salario dos funcionarios com mais de 5 anos de experiencia: " + str(mediaSalarioCincoAnos))
-    print("Salarios caso um aumento de 10% ocorra:")
-    print(aumento)
-    print("==========================================================================")
+        return 1
+    comecar_salarios()
+    print("CLIQUE ENTER PARA CARREGAR PROXIMO ARQUIVO")
+    input()
+    comecar_netflix()
 
 def verificar_integridade_arquivos():
     logging.info("Verificando existencia dos arquivos...")
