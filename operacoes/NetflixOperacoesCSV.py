@@ -23,6 +23,27 @@ def comecar_netflix():
 
     gerar_graficos(dataFrameNetflix)
 
+    print("============================== Dados gerados =============================")
+    print("Primeiros 10 filmes: ")
+    print(str(primeiros10FilmesNetflix.iloc[:, 2].to_list()))
+    print("Ultimos 10 filmes: ")
+    print(str(ultimos10FilmesNetflix.iloc[:, 2].to_list()))
+    print("Filme melhor avaliado: ")
+    print(str(melhorFilme))
+    print("Filme pior avaliado: :")
+    print(str(piorFilme))
+    print("Média da duração dos filmes:")
+    print(str(mediaDuracao))
+    print("Filme mais longo:")
+    print(str(filmeMaisLongo))
+    print("Show mais longo:")
+    print(str(showMaisLongo))
+    print("Ano com mais filmes avaliados:")
+    print(str(anoMaisAvaliado))
+    print("Categorias de age_certification e suas respectivas contagens:")
+    print(quantidade_por_categoria)
+    print("==========================================================================")
+
 def listar_primeiros_10_filmes(dataFrameNetflix):
     try:
         logging.info("Começando processo para listar os primeiros 10 filmes ...")
